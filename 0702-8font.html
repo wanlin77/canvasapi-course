@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        context.fillStyle = '#058';
+        context.font = "bold 40px sans-serif";
+
+        context.textBaseline = "alphabetic"
+        context.fillText("我会中文I can speak Chineseमैं चीनी बोलूंगा", 40, 100);
+        drawBaseLine(context, 100);
+
+        context.textBaseline = "ideographic"
+        context.fillText("我会中文I can speak Chineseमैं चीनी बोलूंगा", 40, 200);
+        drawBaseLine(context, 200);
+
+        context.textBaseline = "hanging"
+        context.fillText("我会中文I can speak Chineseमैं चीनी बोलूंगा", 40, 300);
+        drawBaseLine(context, 300);
+
+    }
+
+    function drawBaseLine(ctx, h) {
+        ctx.save();
+        ctx.moveTo(0, h);
+        ctx.lineTo(ctx.canvas.width, h);
+        ctx.strokeStyle = "#888";
+        ctx.stroke();
+        ctx.restore();
+    }
+
+
+</script>
+</body>
+</html>

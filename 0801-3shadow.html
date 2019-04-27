@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        context.shadowColor = "#058";
+        context.shadowOffsetX = 10;
+        context.shadowOffsetY = 10;
+        context.shadowBlur = 5;
+
+        drowStar(context, 400, 400, 400, 0);
+    }
+
+    function drowStar(ctx, r, x, y, rot) {
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot / 180 * Math.PI);
+        ctx.scale(r, r);
+
+        ctx.fillStyle = "#fb3";
+        starPath(ctx);
+        ctx.fill();
+        ctx.restore();
+
+    }
+
+    function starPath(ctx) {
+        ctx.beginPath();
+        for(var i=0; i<5; i++) {
+            ctx.lineTo( Math.cos( (18 + i*72)/180 * Math.PI ), -Math.sin( (18 + i*72)/180 * Math.PI ) );
+            ctx.lineTo( Math.cos( (54 + i*72)/180 * Math.PI ) * 0.5, -Math.sin( (54 + i*72)/180 * Math.PI ) * 0.5);
+        }
+        ctx.closePath();
+    }
+
+
+</script>
+</body>
+</html>

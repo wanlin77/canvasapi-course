@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        //arcToTest(context, 150, 150, 650, 150, 650, 650, 300);
+        //arcToTest(context, 150, 150, 650, 150, 650, 650, 100);
+        //arcToTest(context, 150, 150, 650, 150, 650, 650, 600);
+        arcToTest(context, 200, 200, 600, 400, 500, 800, 400);
+    };
+
+    function arcToTest(ctx, x, y, x1, y1, x2, y2, r) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.arcTo(x1, y1, x2, y2, r);
+
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = 'red';
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'gray';
+        ctx.stroke();
+    }
+
+</script>
+</body>
+</html>

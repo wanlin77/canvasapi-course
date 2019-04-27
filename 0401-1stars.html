@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        context.fillStyle = "black";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        for(var i = 0; i < 200; i++) {
+            var r = Math.random() * 10 + 10;
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * canvas.height;
+            var a = Math.random() * 360;
+
+            //碰撞检测，保证每颗星星都在画布内
+            if(x-r<0 || x+r>canvas.width || y-r<0 || x+r>canvas.height) {
+                i--; continue;
+            }
+            drowStar5(context, r, r/2, x, y, a);
+        }
+
+    }
+
+    function drowStar5(ctx, R, r, x, y, rot) {
+        ctx.beginPath();
+        for(var i=0; i<5; i++) {
+            ctx.lineTo(Math.cos( (18 + i*72 - rot)/180 * Math.PI) * R + x, -Math.sin( (18 + i*72 - rot)/180 * Math.PI) * R + y);
+            ctx.lineTo(Math.cos( (54 + i*72 - rot)/180 * Math.PI) * r + x, -Math.sin( (54 + i*72 - rot)/180 * Math.PI) * r + y);
+        }
+        ctx.closePath();
+
+        ctx.fillStyle = "#fb3";
+        ctx.strokeStyle = "#fd5";
+        ctx.lineWidth = 3;
+        ctx.lineJoin = "round";
+
+        ctx.fill();
+        ctx.stroke()
+    }
+
+</script>
+</body>
+</html>

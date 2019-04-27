@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        context.lineWidth = 5;
+
+        context.save();
+        context.scale(1, 1);
+        context.strokeRect(50, 50, 150, 150);
+        context.restore();
+
+        context.save();
+        context.scale(2, 2);
+        context.strokeRect(50, 50, 150, 150);
+        context.restore();
+
+        context.save();
+        context.scale(3, 3);
+        context.strokeRect(50, 50, 150, 150);
+        context.restore();
+
+    }
+
+</script>
+</body>
+</html>

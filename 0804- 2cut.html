@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        context.beginPath();
+        context.rect(100, 100, 600, 600);
+        pathRect(context, 200, 200, 400, 200);
+        pathAngle(context, 300, 450, 150, 650, 450, 650);
+        context.arc(550, 550, 100, 0, 2*Math.PI, true);
+        context.closePath();
+
+        context.fillStyle = "#058";
+        context.shadowColor = "gray";
+        context.shadowOffsetX = 5;
+        context.shadowOffsetY = 5;
+        context.shadowBlur = 5;
+        context.fill();
+    }
+
+    function pathRect(ctx, x, y, width, height) {
+        ctx.moveTo(x, y);
+        ctx.lineTo(x, y + height);
+        ctx.lineTo(x + width, y + height);
+        ctx.lineTo(x + width, y);
+        ctx.lineTo(x, y);
+    }
+
+    function pathAngle(ctx, x1, y1, x2, y2, x3, y3) {
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.lineTo(x3, y3);
+        ctx.lineTo(x1, y1);
+    }
+
+</script>
+</body>
+</html>

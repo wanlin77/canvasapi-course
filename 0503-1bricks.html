@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        var backgroundImage = new Image();
+        backgroundImage.src = "wenli001.png";
+        backgroundImage.onload = function () {
+            //var pattern = context.createPattern(backgroundImage, "no-repeat");
+            //var pattern = context.createPattern(backgroundImage, "repeat-x");
+            //var pattern = context.createPattern(backgroundImage, "repeat-y");
+            var pattern = context.createPattern(backgroundImage, "repeat");
+            context.fillStyle = pattern;
+            context.fillRect(0, 0, 800, 800);
+        }
+
+    }
+
+</script>
+</body>
+</html>

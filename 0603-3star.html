@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 1200;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        var skyStyle = context.createLinearGradient(0, 0, 0, canvas.height);
+        skyStyle.addColorStop(0.0, 'black');
+        skyStyle.addColorStop(1.0, '#035');
+        context.fillStyle = skyStyle;
+
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        for(var i = 0; i < 200; i++) {
+            var r = Math.random() * 5 + 5;
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * canvas.height * 0.65;
+            var a = Math.random() * 360;
+
+            drowStar(context, r, x, y, a);
+        }
+
+        fillMoon(context, 2, 700, 250, 50, 30);
+
+    }
+
+    function drowStar(ctx, r, x, y, rot) {
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot / 180 * Math.PI);
+        ctx.scale(r, r);
+
+
+        ctx.fillStyle = "#fb3";
+        //ctx.strokeStyle = "#fd5";
+        //ctx.lineWidth = 3;
+        //ctx.lineJoin = "round";
+
+        starPath(ctx);
+
+        ctx.fill();
+        //ctx.stroke();
+        //绘制在(x, y)，大小为r，旋转角度为rot度的五角星
+        ctx.restore();
+
+    }
+
+    function starPath(ctx) {
+        ctx.beginPath();
+        for(var i=0; i<5; i++) {
+            ctx.lineTo( Math.cos( (18 + i*72)/180 * Math.PI ), -Math.sin( (18 + i*72)/180 * Math.PI ) );
+            ctx.lineTo( Math.cos( (54 + i*72)/180 * Math.PI ) * 0.5, -Math.sin( (54 + i*72)/180 * Math.PI ) * 0.5);
+        }
+        ctx.closePath();
+    }
+
+    function fillMoon(ctx, d, x, y, R, rot, /*optional*/ fillColor) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot * Math.PI/180);
+        ctx.scale(R, R);
+        pathMoon(ctx, d);
+        ctx.fillStyle = fillColor || "#fb5";
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function pathMoon(ctx, d) {
+        ctx.beginPath();
+        ctx.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true);
+        ctx.moveTo(0, -1);
+        ctx.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d)
+    }
+
+    function dis(x1, y1, x2, y2) {
+        return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+    }
+
+</script>
+</body>
+</html>

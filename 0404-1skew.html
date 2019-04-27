@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        context.fillStyle = "red";
+        context.strokeStyle = "#58";
+        context.lineWidth = 5;
+        //
+        //a c e
+        //b d f
+        //0 0 1
+        //a,d水平、垂直缩放
+        //b,c水平、垂直倾斜
+        //e,f水平、垂直位移
+        //
+        context.save();
+        //context.transform(2, 0.2, 0.2, 1.5, 50, 100);
+        context.transform(1, 0, 0, 1, 50, 100);
+        context.transform(2, 0, 0, 1.5, 0, 0);
+        context.transform(1, -0.2, -0.2, 1, 0, 0);
+        context.setTransform(1, 0, 0, 1, 100, 100);
+        context.fillRect(50, 50, 300, 300);
+        context.strokeRect(50, 50, 300, 300);
+        context.restore();
+
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    var searchlight = {
+        x: 100,
+        y: 100,
+        radius: 150,
+        vx: Math.random() * 5 + 10,
+        vy: Math.random() * 5 + 10
+    }
+    var rot = 0
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+        
+        setInterval(
+            function () {
+                draw(context)
+                update(canvas.width, canvas.height);
+            }
+            , 40
+        );
+    }
+
+    function draw(ctx) {
+        var canvas = ctx.canvas;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+        ctx.save();
+        ctx.beginPath()
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.fillStyle = "#fff";
+        //ctx.arc(searchlight.x, searchlight.y, searchlight.radius, 0, 2*Math.PI);
+        drawStar(ctx, searchlight.radius, searchlight.x, searchlight.y);
+        ctx.fill();
+        ctx.clip();
+
+        ctx.font = "150px bold Arial";
+        ctx.fillStyle = "#058"
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("Canvas", canvas.width/2, canvas.height/2);
+        ctx.restore();
+    }
+    
+    function update(width, height) {
+        rot  += 1;
+        searchlight.x += searchlight.vx;
+        searchlight.y += searchlight.vy;
+
+        if(searchlight.x - searchlight.radius <= 0) {
+            searchlight.x = searchlight.radius;
+            searchlight.vx = -searchlight.vx;
+        }
+        if(searchlight.x + searchlight.radius >= width) {
+            searchlight.x = width - searchlight.radius;
+            searchlight.vx = -searchlight.vx;
+        }
+        if(searchlight.y - searchlight.radius <= 0) {
+            searchlight.y = searchlight.radius;
+            searchlight.vy = -searchlight.vy;
+        }
+        if(searchlight.y + searchlight.radius >= height) {
+            searchlight.y = height - searchlight.radius;
+            searchlight.vy = -searchlight.vy;
+        }
+    }
+
+    function drawStar(ctx, r, x, y) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot / 180 * Math.PI);
+        ctx.scale(r, r);
+
+        ctx.fillStyle = "#fb3";
+
+        starPath(ctx);
+
+        ctx.fill();
+        //绘制在(x, y)，大小为r，旋转角度为rot度的五角星
+        ctx.restore();
+
+    }
+
+    function starPath(ctx) {
+        ctx.beginPath();
+        for(var i=0; i<5; i++) {
+            ctx.lineTo( Math.cos( (18 + i*72)/180 * Math.PI ), -Math.sin( (18 + i*72)/180 * Math.PI ) );
+            ctx.lineTo( Math.cos( (54 + i*72)/180 * Math.PI ) * 0.5, -Math.sin( (54 + i*72)/180 * Math.PI ) * 0.5);
+        }
+        ctx.closePath();
+    }
+
+</script>
+</body>
+</html>

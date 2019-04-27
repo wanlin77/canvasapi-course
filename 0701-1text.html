@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        canvas{
+            border: 1px solid #aaa;
+            display: block;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" >
+    当前浏览器不支持canvas，请更换浏览器
+</canvas>
+
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        canvas.width = 800;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+        context.font = "bold 40px Arial";
+        context.fillStyle = '#058';
+        context.fillText("我喜欢EVA，我喜欢凌波丽和明日香！", 40, 100);
+
+        context.lineWidth = 1;
+        context.strokeStyle = "#058";
+        context.strokeText("我喜欢EVA，我喜欢凌波丽和明日香！", 40, 200);
+
+        context.fillText("我喜欢EVA，我喜欢凌波丽和明日香！", 40, 300, 400);
+        context.strokeText("我喜欢EVA，我喜欢凌波丽和明日香！", 40, 400, 400);
+
+        var linnerGrand = context.createLinearGradient(0, 0, 800, 0);
+        linnerGrand.addColorStop(0, 'red');
+        linnerGrand.addColorStop(0.25, 'orange');
+        linnerGrand.addColorStop(0.5, 'yellow');
+        linnerGrand.addColorStop(0.75, 'green');
+        linnerGrand.addColorStop(1, 'purple');
+        context.fillStyle = linnerGrand;
+        context.fillText("我喜欢EVA，我喜欢凌波丽和明日香！", 40, 500);
+
+        var backgroundImg = new Image();
+        backgroundImg.src='wenli001.png';
+        backgroundImg.onload = function(){
+            var pattern = context.createPattern(backgroundImg, "repeat");
+            context.fillStyle = pattern;
+            context.font = "bold 100px Arial";
+            context.fillText("Canvas!", 100, 650);
+            context.strokeText("Canvas!", 100, 650);
+        }
+    }
+
+
+</script>
+</body>
+</html>
